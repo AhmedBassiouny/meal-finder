@@ -13,12 +13,6 @@ class ItemRepository {
   Future<Either<WError, List<Item>>> getItems({
     required double lat,
     required double lon,
-  }) async =>
-      _fetchAndExtractItemsFromApi(lat: lat, lon: lon);
-
-  Future<Either<WError, List<Item>>> _fetchAndExtractItemsFromApi({
-    required double lat,
-    required double lon,
   }) async {
     try {
       return _service
