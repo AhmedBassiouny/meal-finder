@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meal_finder/theme/app_theme.dart';
 
 class ErrorScreen extends StatelessWidget {
   final String errorMessage;
@@ -8,13 +9,6 @@ class ErrorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle elevatedButtonStyle = ElevatedButton.styleFrom(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-      ),
-    );
-
     return Column(
       children: <Widget>[
         Expanded(
@@ -47,14 +41,12 @@ class ErrorScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: onRetry,
-                    style: elevatedButtonStyle,
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
+                    style: appTheme.defaultButtonStyle,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
                       child: Text(
                         'Retry',
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
+                        style: appTheme.wTextTheme.titleMedium,
                       ),
                     ),
                   ),

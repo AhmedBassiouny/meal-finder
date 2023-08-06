@@ -6,6 +6,7 @@ import 'package:meal_finder/infrastructure/restaurants/restaurants_repository.da
 import 'package:meal_finder/presentation/restaurants/restaurant_list_widget.dart';
 import 'package:meal_finder/presentation/widgets/error_screen.dart';
 import 'package:meal_finder/presentation/widgets/loading_widget.dart';
+import 'package:meal_finder/theme/app_theme.dart';
 
 class RestaurantListPage extends StatelessWidget {
   const RestaurantListPage({super.key});
@@ -28,7 +29,7 @@ class _RestaurantListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xFEFEFEFF),
+      color: appTheme.wColors.N100,
       child: BlocBuilder<RestaurantListBloc, RestaurantListState>(
         builder: (context, state) => state.when(
           initial: () => const LoadingWidget(),

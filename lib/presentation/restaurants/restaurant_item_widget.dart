@@ -5,6 +5,7 @@ import 'package:meal_finder/application/model/restaurant.dart';
 import 'package:meal_finder/application/restaurants/restaurant_list_bloc.dart';
 import 'package:meal_finder/presentation/widgets/heart_fav_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:meal_finder/theme/app_theme.dart';
 
 class RestaurantItemWidget extends StatelessWidget {
   final Restaurant _restaurant;
@@ -16,9 +17,11 @@ class RestaurantItemWidget extends StatelessWidget {
     return Card(
       semanticContainer: true,
       clipBehavior: Clip.antiAliasWithSaveLayer,
+      color: appTheme.wColors.N100,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
+      elevation: 0.5,
       child: Column(
         children: [
           Ink.image(
@@ -37,11 +40,13 @@ class RestaurantItemWidget extends StatelessWidget {
                     children: [
                       AutoSizeText(
                         _restaurant.name,
+                        style: appTheme.wTextTheme.headlineSmall,
                         maxLines: 1,
                       ),
                       if (_restaurant.shortDescription != null)
                         Text(
                           _restaurant.shortDescription!,
+                          style: appTheme.wTextTheme.bodyMedium,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),

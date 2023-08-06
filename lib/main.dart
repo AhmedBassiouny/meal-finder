@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meal_finder/infrastructure/geo_location/geo_location_repository.dart';
 import 'package:meal_finder/infrastructure/restaurants/restaurants_repository.dart';
@@ -6,8 +7,17 @@ import 'package:meal_finder/infrastructure/services/api/wolt_remote_service.dart
 import 'package:meal_finder/infrastructure/services/local_location_service/local_location_service.dart';
 import 'package:meal_finder/infrastructure/services/storage/local_storage.dart';
 import 'package:meal_finder/presentation/restaurants/restaurant_list_page.dart';
+import 'package:meal_finder/theme/app_theme.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.white,
+      statusBarBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.dark,
+    ),
+  );
+
   runApp(const MyApp());
 }
 
@@ -47,10 +57,7 @@ class AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Meal Finder',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlueAccent),
-        useMaterial3: true,
-      ),
+      theme: appTheme.themeData,
       home: const Scaffold(body: SafeArea(child: RestaurantListPage())),
     );
   }

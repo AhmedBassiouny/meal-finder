@@ -46,7 +46,7 @@ void main() {
     });
 
     test('getNearbyRestaurants returns WError when service call fails', () async {
-      when(() => mockWoltRemoteService.getRestaurants(1.0, 1.0)).thenAnswer((_) async => Left(WError("Error")));
+      when(() => mockWoltRemoteService.getRestaurants(1.0, 1.0)).thenAnswer((_) async => const Left(WError("Error")));
 
       final result = await repository.getNearbyRestaurants(lat: 1.0, lon: 1.0);
 
