@@ -25,10 +25,9 @@ class RestaurantsRepository {
     });
   }
 
-  void setFavRestaurants({required String restaurantId, required bool fav}) =>
-      fav
-          ? _storage.setRestaurantAsFav(restaurantId: restaurantId)
-          : _storage.removeRestaurantAsFav(restaurantId: restaurantId);
+  void setFavRestaurants({required String restaurantId, required bool fav}) => fav
+      ? _storage.setRestaurantAsFav(restaurantId: restaurantId)
+      : _storage.removeRestaurantAsFav(restaurantId: restaurantId);
 
   List<String> _getFavRestaurants() {
     return _storage.getFavRestaurants();
@@ -48,8 +47,8 @@ class RestaurantsRepository {
           )
           .thenRight((section) => Right(section.items));
     } catch (e) {
-      return const Left(WError(
-          "It’s not you, it’s us! We’re working hard to expand and hope to come to your area soon 😌"));
+      return const Left(
+          WError("It’s not you, it’s us! We’re working hard to expand and hope to come to your area soon 😌"));
     }
   }
 
@@ -60,24 +59,19 @@ class RestaurantsRepository {
     final idSet = Set.from(ids);
     final results = <Restaurant>[];
     for (final item in items) {
-      results.add(_convertItemToRestaurant(
-        item: item,
-        fav: idSet.contains(item.venue?.id),
-      ));
+      results.add(item.toRestaurant(fav: idSet.contains(item.venue?.id)));
     }
     return results;
   }
+}
 
-  Restaurant _convertItemToRestaurant({
-    required Item item,
-    required bool fav,
-  }) =>
-      Restaurant(
-        id: item.venue?.id ?? "id",
-        name: item.venue?.name ?? "name",
-        imageUrl: item.image.url,
-        blurImage: item.image.blurhash,
-        shortDescription: item.venue?.shortDescription,
+extension on Item {
+  Restaurant toRestaurant({required bool fav}) => Restaurant(
+        id: venue?.id ?? "id",
+        name: venue?.name ?? "name",
+        imageUrl: image.url,
+        blurImage: image.blurhash,
+        shortDescription: venue?.shortDescription,
         fav: fav,
       );
 }
