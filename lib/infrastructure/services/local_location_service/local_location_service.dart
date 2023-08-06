@@ -33,7 +33,7 @@ class LocalLocationService {
 }
 
 class _CONSTANTS {
-  static const int refreshInterval = 40;
+  static const int refreshInterval = 10;
 
   static const mockLocations = [
     Location(lat: 60.170187, lon: 24.930599, address: "Jaakonkatu 5, Helsinki"),
