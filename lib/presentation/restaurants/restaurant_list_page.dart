@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meal_finder/application/restaurants/restaurant_list_bloc.dart';
+import 'package:meal_finder/application/restaurants/restaurant_provider.dart';
+import 'package:meal_finder/infrastructure/favorite/favorite_repository.dart';
 import 'package:meal_finder/infrastructure/geo_location/geo_location_repository.dart';
-import 'package:meal_finder/infrastructure/restaurants/restaurants_repository.dart';
 import 'package:meal_finder/presentation/restaurants/restaurant_list_widget.dart';
 import 'package:meal_finder/presentation/widgets/error_screen.dart';
 import 'package:meal_finder/presentation/widgets/loading_widget.dart';
@@ -15,8 +16,9 @@ class RestaurantListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<RestaurantListBloc>(
       create: (context) => RestaurantListBloc(
-        restaurantsRepository: context.read<RestaurantsRepository>(),
+        restaurantProvider: context.read<RestaurantProvider>(),
         geoLocationRepository: context.read<GeoLocationRepository>(),
+        favoriteRepository: context.read<FavoriteRepository>(),
       ),
       child: const _RestaurantListView(),
     );

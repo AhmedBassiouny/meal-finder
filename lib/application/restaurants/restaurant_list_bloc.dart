@@ -2,8 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:either_dart/either.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meal_finder/application/model/restaurant.dart';
+import 'package:meal_finder/application/restaurants/restaurant_provider.dart';
+import 'package:meal_finder/infrastructure/favorite/favorite_repository.dart';
 import 'package:meal_finder/infrastructure/geo_location/geo_location_repository.dart';
-import 'package:meal_finder/infrastructure/restaurants/restaurants_repository.dart';
 
 part 'restaurant_list_event.dart';
 
@@ -13,10 +14,12 @@ part 'restaurant_list_bloc.freezed.dart';
 
 class RestaurantListBloc extends Bloc<RestaurantListEvent, RestaurantListState> {
   RestaurantListBloc({
-    required RestaurantsRepository restaurantsRepository,
+    required RestaurantProvider restaurantProvider,
     required GeoLocationRepository geoLocationRepository,
-  })  : _restaurantsRepository = restaurantsRepository,
+    required FavoriteRepository favoriteRepository,
+  })  : _restaurantProvider = restaurantProvider,
         _geoLocationRepository = geoLocationRepository,
+        _favoriteRepository = favoriteRepository,
         super(const RestaurantListState.initial()) {
     on<_Started>((_, emit) async => await _fetchData(emit));
     on<_Refresh>((_, emit) async {
@@ -32,7 +35,7 @@ class RestaurantListBloc extends Bloc<RestaurantListEvent, RestaurantListState> 
       );
     });
     on<_FavIconPressed>(
-      (event, emit) => _restaurantsRepository.setFavRestaurants(
+      (event, emit) => _favoriteRepository.setFavRestaurants(
         restaurantId: event.restaurantId,
         fav: event.fav,
       ),
@@ -40,14 +43,15 @@ class RestaurantListBloc extends Bloc<RestaurantListEvent, RestaurantListState> 
 
     _geoLocationRepository.getLiveLocation().listen((location) {
       add(RestaurantListEvent.locationChanged(
-          lat: location.lat,
-          lon: location.lon,
-        ));
+        lat: location.lat,
+        lon: location.lon,
+      ));
     });
   }
 
-  final RestaurantsRepository _restaurantsRepository;
+  final RestaurantProvider _restaurantProvider;
   final GeoLocationRepository _geoLocationRepository;
+  final FavoriteRepository _favoriteRepository;
 
   Future<void> _fetchData(Emitter<RestaurantListState> emit) async {
     final location = _geoLocationRepository.getCurrentLocation();
@@ -62,12 +66,11 @@ class RestaurantListBloc extends Bloc<RestaurantListEvent, RestaurantListState> 
     required Emitter<RestaurantListState> emit,
     required double lat,
     required double lon,
-  }) async {
-    await _restaurantsRepository.getNearbyRestaurants(lat: lat, lon: lon).fold(
-          (error) => emit(
-            RestaurantListState.failure(errorMessage: error.message),
-          ),
-          (result) => emit(RestaurantListState.success(restaurants: result)),
-        );
-  }
+  }) async =>
+      await _restaurantProvider.getNearbyRestaurants(lat: lat, lon: lon).fold(
+            (error) => emit(
+              RestaurantListState.failure(errorMessage: error.message),
+            ),
+            (result) => emit(RestaurantListState.success(restaurants: result)),
+          );
 }
