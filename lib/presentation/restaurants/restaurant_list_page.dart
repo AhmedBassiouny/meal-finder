@@ -33,15 +33,20 @@ class _RestaurantListView extends StatelessWidget {
     return Container(
       color: appTheme.wColors.N100,
       child: BlocBuilder<RestaurantListBloc, RestaurantListState>(
-        builder: (context, state) => state.when(
-          initial: () => const LoadingWidget(),
-          loading: () => const LoadingWidget(),
-          success: (restaurants) => RestaurantListWidget(restaurants: restaurants),
-          failure: (e) => ErrorScreen(
-            errorMessage: e,
-            onRetry: () => context.read<RestaurantListBloc>().add(const RestaurantListEvent.refresh()),
-          ),
-        ),
+        builder: (context, state) {
+          return AnimatedSwitcher(
+            duration: const Duration(seconds: 1),
+            child: state.when(
+              initial: () => const LoadingWidget(),
+              loading: () => const LoadingWidget(),
+              success: (restaurants) => RestaurantListWidget(restaurants: restaurants),
+              failure: (e) => ErrorScreen(
+                errorMessage: e,
+                onRetry: () => context.read<RestaurantListBloc>().add(const RestaurantListEvent.refresh()),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
