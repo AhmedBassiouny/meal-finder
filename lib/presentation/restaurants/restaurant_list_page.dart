@@ -5,6 +5,7 @@ import 'package:meal_finder/infrastructure/geo_location/geo_location_repository.
 import 'package:meal_finder/infrastructure/restaurants/restaurants_repository.dart';
 import 'package:meal_finder/presentation/restaurants/restaurant_list_widget.dart';
 import 'package:meal_finder/presentation/widgets/error_screen.dart';
+import 'package:meal_finder/presentation/widgets/loading_widget.dart';
 
 class RestaurantListPage extends StatelessWidget {
   const RestaurantListPage({super.key});
@@ -37,39 +38,6 @@ class _RestaurantListView extends StatelessWidget {
             errorMessage: e,
             onRetry: () => context.read<RestaurantListBloc>().add(const RestaurantListEvent.refresh()),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class LoadingWidget extends StatelessWidget {
-  const LoadingWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(28.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 80.0),
-              child: Image.asset(
-                "assets/images/wolt_loading.gif",
-                height: 225.0,
-                width: 225.0,
-              ),
-            ),
-            const Text(
-              "Searching for Nearby Restaurants",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24),
-            ),
-          ],
         ),
       ),
     );
