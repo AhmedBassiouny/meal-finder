@@ -26,7 +26,7 @@ void main() {
                 Section(name: 'restaurants-delivering-venues', title: 'Delivering', items: [
                   Item(
                       contentID: '1',
-                      image: Image(blurhash: 'blurhash', url: 'url'),
+                      image: Image(url: 'url'),
                       venue: Venue(id: '1', name: 'Restaurant 1', shortDescription: 'Description 1'))
                 ])
               ])));

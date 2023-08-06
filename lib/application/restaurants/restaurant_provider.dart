@@ -43,7 +43,6 @@ extension on Item {
         id: venue?.id ?? "id",
         name: venue?.name ?? "name",
         imageUrl: image.url,
-        blurImage: image.blurhash,
         shortDescription: venue?.shortDescription,
         fav: fav,
       );

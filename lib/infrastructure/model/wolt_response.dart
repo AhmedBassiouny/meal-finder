@@ -43,7 +43,6 @@ class Item with _$Item {
 @freezed
 class Image with _$Image {
   const factory Image({
-    required String blurhash,
     required String url,
   }) = _Image;
 

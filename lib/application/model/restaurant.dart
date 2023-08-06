@@ -9,7 +9,6 @@ class Restaurant with _$Restaurant {
     required String id,
     required String name,
     required String imageUrl,
-    required String blurImage,
     required bool fav,
     String? shortDescription,
   }) = _Restaurant;

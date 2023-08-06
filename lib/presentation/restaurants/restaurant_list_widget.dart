@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meal_finder/application/model/restaurant.dart';
 import 'package:meal_finder/presentation/restaurants/restaurant_item_widget.dart';
+import 'package:meal_finder/theme/app_theme.dart';
 
 class RestaurantListWidget extends StatelessWidget {
   const RestaurantListWidget({
@@ -17,7 +18,7 @@ class RestaurantListWidget extends StatelessWidget {
         SliverAppBar(
           title: const Text("Nearby Restaurants"),
           floating: true,
-          flexibleSpace: Container(),
+          flexibleSpace: Container(color: appTheme.wColors.N100),
           expandedHeight: 20,
         ),
         SliverList(
