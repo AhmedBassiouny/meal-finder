@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meal_finder/core/custom_multi_repository_provider.dart';
+import 'package:meal_finder/presentation/app/custom_multi_repository_provider.dart';
 import 'package:meal_finder/presentation/restaurants/restaurant_list_page.dart';
 import 'package:meal_finder/theme/app_theme.dart';
 

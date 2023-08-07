@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:meal_finder/core/app.dart';
+import 'package:meal_finder/presentation/app/app.dart';
+
 
 Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(
