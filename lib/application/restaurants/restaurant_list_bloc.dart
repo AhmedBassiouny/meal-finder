@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:either_dart/either.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -5,6 +7,7 @@ import 'package:meal_finder/application/model/restaurant.dart';
 import 'package:meal_finder/application/restaurants/restaurant_provider.dart';
 import 'package:meal_finder/infrastructure/favorite/favorite_repository.dart';
 import 'package:meal_finder/infrastructure/geo_location/geo_location_repository.dart';
+import 'package:meal_finder/infrastructure/model/location.dart';
 
 part 'restaurant_list_event.dart';
 
@@ -41,7 +44,7 @@ class RestaurantListBloc extends Bloc<RestaurantListEvent, RestaurantListState> 
       ),
     );
 
-    _geoLocationRepository.getLiveLocation().listen((location) {
+    streamSubscription = _geoLocationRepository.getLiveLocation().listen((location) {
       add(RestaurantListEvent.locationChanged(
         lat: location.lat,
         lon: location.lon,
@@ -52,6 +55,7 @@ class RestaurantListBloc extends Bloc<RestaurantListEvent, RestaurantListState> 
   final RestaurantProvider _restaurantProvider;
   final GeoLocationRepository _geoLocationRepository;
   final FavoriteRepository _favoriteRepository;
+  StreamSubscription<Location>? streamSubscription;
 
   Future<void> _fetchData(Emitter<RestaurantListState> emit) async {
     final location = _geoLocationRepository.getCurrentLocation();
@@ -73,4 +77,10 @@ class RestaurantListBloc extends Bloc<RestaurantListEvent, RestaurantListState> 
             ),
             (result) => emit(RestaurantListState.success(restaurants: result)),
           );
+
+  @override
+  Future<void> close() {
+    streamSubscription?.cancel();
+    return super.close();
+  }
 }
