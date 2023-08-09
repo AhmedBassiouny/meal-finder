@@ -33,8 +33,7 @@ class RestaurantListBloc extends Bloc<RestaurantListEvent, RestaurantListState> 
       emit(const RestaurantListState.loading());
       return await _handleLocationChange(
         emit: emit,
-        lat: event.lat,
-        lon: event.lon,
+        location: event.location,
       );
     });
     on<_FavIconPressed>(
@@ -46,8 +45,7 @@ class RestaurantListBloc extends Bloc<RestaurantListEvent, RestaurantListState> 
 
     streamSubscription = _geoLocationRepository.getLiveLocation().listen((location) {
       add(RestaurantListEvent.locationChanged(
-        lat: location.lat,
-        lon: location.lon,
+        location: location,
       ));
     });
   }
@@ -61,22 +59,22 @@ class RestaurantListBloc extends Bloc<RestaurantListEvent, RestaurantListState> 
     final location = _geoLocationRepository.getCurrentLocation();
     await _handleLocationChange(
       emit: emit,
-      lat: location.lat,
-      lon: location.lon,
+      location: location,
     );
   }
 
   _handleLocationChange({
     required Emitter<RestaurantListState> emit,
-    required double lat,
-    required double lon,
-  }) async =>
-      await _restaurantProvider.getNearbyRestaurants(lat: lat, lon: lon).fold(
-            (error) => emit(
-              RestaurantListState.failure(errorMessage: error.message),
-            ),
-            (result) => emit(RestaurantListState.success(restaurants: result)),
-          );
+    required Location location,
+  }) async {
+    emit(RestaurantListState.processingLocationChange(location: location));
+    await _restaurantProvider.getNearbyRestaurants(lat: location.lat, lon: location.lon).fold(
+          (error) => emit(
+            RestaurantListState.failure(errorMessage: error.message),
+          ),
+          (result) => emit(RestaurantListState.success(restaurants: result)),
+        );
+  }
 
   @override
   Future<void> close() {

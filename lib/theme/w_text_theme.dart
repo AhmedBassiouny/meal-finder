@@ -7,7 +7,7 @@ TextStyle wTextStyle = TextStyle(
   fontWeight: FontWeight.normal,
 );
 
-final crTextTheme = TextTheme(
+final wTextTheme = TextTheme(
   displaySmall: wTextStyle.copyWith(fontSize: 22, fontWeight: FontWeight.bold),
   headlineSmall: wTextStyle.copyWith(fontSize: 16, fontWeight: FontWeight.bold),
   titleMedium: wTextStyle.copyWith(fontSize: 18, fontWeight: FontWeight.bold),

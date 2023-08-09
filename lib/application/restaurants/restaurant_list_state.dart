@@ -10,7 +10,15 @@ class RestaurantListState with _$RestaurantListState {
     required List<Restaurant> restaurants,
   }) = _Success;
 
+  const factory RestaurantListState.processingLocationChange({
+    required Location location,
+  }) = _ProcessingLocationChange;
+
   const factory RestaurantListState.failure({
     required String errorMessage,
   }) = _Failure;
+}
+
+extension RestaurantListStateX on RestaurantListState {
+  bool get isProcessingLocationChange => this is _ProcessingLocationChange;
 }

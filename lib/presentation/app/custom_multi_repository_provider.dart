@@ -9,7 +9,7 @@ import 'package:meal_finder/infrastructure/services/local_location_service/local
 import 'package:meal_finder/infrastructure/services/storage/local_storage.dart';
 import 'package:provider/single_child_widget.dart';
 
-class CustomMultiRepositoryProvider extends MultiRepositoryProvider {
+class CustomMultiRepositoryProvider extends MultiRepositoryProvider{
   CustomMultiRepositoryProvider({
     required Widget child,
   }) : super(key: null, child: child, providers: _getRepositories());
@@ -23,7 +23,6 @@ class CustomMultiRepositoryProvider extends MultiRepositoryProvider {
     final restaurantProvider =
         RestaurantProvider(itemRepository: itemRepository, favoriteRepository: favoriteRepository);
     final geoLocationRepository = GeoLocationRepository(localLocationProvider: localLocationProvider);
-
     return [
       RepositoryProvider(create: (_) => woltRemoteService),
       RepositoryProvider(create: (_) => localeStorage),

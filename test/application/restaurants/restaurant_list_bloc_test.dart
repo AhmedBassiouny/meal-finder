@@ -46,7 +46,10 @@ void main() {
         favoriteRepository: mockFavoriteRepository,
       ),
       act: (bloc) => bloc.add(const RestaurantListEvent.started()),
-      expect: () => [const RestaurantListState.success(restaurants: [])],
+      expect: () => [
+        const RestaurantListState.processingLocationChange(location: location),
+        const RestaurantListState.success(restaurants: []),
+      ],
     );
 
     blocTest<RestaurantListBloc, RestaurantListState>(
@@ -64,7 +67,11 @@ void main() {
         favoriteRepository: mockFavoriteRepository,
       ),
       act: (bloc) => bloc.add(const RestaurantListEvent.refresh()),
-      expect: () => [const RestaurantListState.loading(), const RestaurantListState.success(restaurants: [])],
+      expect: () => [
+        const RestaurantListState.loading(),
+        const RestaurantListState.processingLocationChange(location: location),
+        const RestaurantListState.success(restaurants: [])
+      ],
     );
 
     blocTest<RestaurantListBloc, RestaurantListState>(
@@ -82,7 +89,11 @@ void main() {
         favoriteRepository: mockFavoriteRepository,
       ),
       act: (bloc) => bloc.add(const RestaurantListEvent.refresh()),
-      expect: () => [const RestaurantListState.loading(), const RestaurantListState.failure(errorMessage: "error")],
+      expect: () => [
+        const RestaurantListState.loading(),
+        const RestaurantListState.processingLocationChange(location: location),
+        const RestaurantListState.failure(errorMessage: "error")
+      ],
     );
 
     blocTest<RestaurantListBloc, RestaurantListState>(
@@ -98,8 +109,12 @@ void main() {
         geoLocationRepository: mockGeoLocationRepository,
         favoriteRepository: mockFavoriteRepository,
       ),
-      act: (bloc) => bloc.add(const RestaurantListEvent.locationChanged(lat: 0.0, lon: 0.0)),
-      expect: () => [const RestaurantListState.loading(), const RestaurantListState.success(restaurants: [])],
+      act: (bloc) => bloc.add(const RestaurantListEvent.locationChanged(location: location)),
+      expect: () => [
+        const RestaurantListState.loading(),
+        const RestaurantListState.processingLocationChange(location: location),
+        const RestaurantListState.success(restaurants: [])
+      ],
     );
 
     blocTest<RestaurantListBloc, RestaurantListState>(

@@ -14,67 +14,64 @@ class RestaurantItemWidget extends StatelessWidget {
   const RestaurantItemWidget(restaurant, {super.key}) : _restaurant = restaurant;
 
   @override
-  Widget build(BuildContext context) {
-    // print(_restaurant.blurImage);
-    return Card(
-      semanticContainer: true,
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      color: appTheme.wColors.N100,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      elevation: 0.5,
-      child: Column(
-        children: [
-          CachedNetworkImage(
-            imageUrl: _restaurant.imageUrl,
-            width: double.infinity,
-            fit: BoxFit.cover,
-            height: 180,
-            placeholder: (context, url) {
-              return const AspectRatio(
-                aspectRatio: 1.6,
-                child: BlurHash(hash: _CONSTANTS.blurHash),
-              );
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 22.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AutoSizeText(
-                        _restaurant.name,
-                        style: appTheme.wTextTheme.headlineSmall,
-                        maxLines: 1,
-                      ),
-                      if (_restaurant.shortDescription != null)
-                        Text(
-                          _restaurant.shortDescription!,
-                          style: appTheme.wTextTheme.bodyMedium,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                    ],
-                  ),
-                ),
-                HeartFavWidget(
-                  key: Key(_restaurant.id),
-                  isSelected: _restaurant.fav,
-                  onSelected: () => _onFavTapped(context: context, selected: true),
-                  onDeselected: () => _onFavTapped(context: context, selected: false),
-                ),
-              ],
+  Widget build(BuildContext context) => Card(
+        semanticContainer: true,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        color: appTheme.wColors.N100,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 0.5,
+        child: Column(
+          children: [
+            CachedNetworkImage(
+              imageUrl: _restaurant.imageUrl,
+              width: double.infinity,
+              fit: BoxFit.cover,
+              height: 180,
+              placeholder: (context, url) {
+                return const AspectRatio(
+                  aspectRatio: 1.6,
+                  child: BlurHash(hash: _CONSTANTS.blurHash),
+                );
+              },
             ),
-          )
-        ],
-      ),
-    );
-  }
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 22.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AutoSizeText(
+                          _restaurant.name,
+                          style: appTheme.wTextTheme.headlineSmall,
+                          maxLines: 1,
+                        ),
+                        if (_restaurant.shortDescription != null)
+                          Text(
+                            _restaurant.shortDescription!,
+                            style: appTheme.wTextTheme.bodyMedium,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                      ],
+                    ),
+                  ),
+                  HeartFavWidget(
+                    key: Key(_restaurant.id),
+                    isSelected: _restaurant.fav,
+                    onSelected: () => _onFavTapped(context: context, selected: true),
+                    onDeselected: () => _onFavTapped(context: context, selected: false),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      );
 
   void _onFavTapped({
     required BuildContext context,

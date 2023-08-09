@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:meal_finder/theme/cr_text_theme.dart';
+import 'package:meal_finder/theme/w_text_theme.dart';
 import 'package:meal_finder/theme/w_color_scheme.dart';
 
-final appTheme = AppTheme(wColors, crTextTheme);
+final appTheme = AppTheme(wColors, wTextTheme);
 
 class AppTheme {
   AppTheme(this.wColors, this.wTextTheme);

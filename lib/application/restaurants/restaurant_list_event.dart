@@ -12,7 +12,6 @@ class RestaurantListEvent with _$RestaurantListEvent {
   }) = _FavIconPressed;
 
   const factory RestaurantListEvent.locationChanged({
-    required double lat,
-    required double lon,
+    required Location location,
   }) = _LocationChanged;
 }
