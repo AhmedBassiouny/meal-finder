@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meal_finder/utils/strings.dart';
 
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget({
@@ -22,7 +23,7 @@ class LoadingWidget extends StatelessWidget {
               ),
             ),
             const Text(
-              "Searching for Nearby Restaurants",
+              Strings.loadingPageMessage,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 24),
             ),

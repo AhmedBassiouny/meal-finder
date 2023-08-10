@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meal_finder/theme/app_theme.dart';
+import 'package:meal_finder/utils/strings.dart';
 
 class ErrorScreen extends StatelessWidget {
   final String errorMessage;
@@ -26,7 +27,7 @@ class ErrorScreen extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.all(16.0),
                 child: Text(
-                  "Something unexpected just happened 😔",
+                  Strings.errorScreenMessage,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
@@ -45,7 +46,7 @@ class ErrorScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        'Retry',
+                        Strings.errorScreenButtonText,
                         style: appTheme.wTextTheme.titleMedium,
                       ),
                     ),

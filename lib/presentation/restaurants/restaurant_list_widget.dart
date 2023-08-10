@@ -4,6 +4,7 @@ import 'package:meal_finder/application/model/restaurant.dart';
 import 'package:meal_finder/application/restaurants/appbar/sliver_app_bar_cubit.dart';
 import 'package:meal_finder/presentation/restaurants/restaurant_item_widget.dart';
 import 'package:meal_finder/theme/app_theme.dart';
+import 'package:meal_finder/utils/strings.dart';
 
 class RestaurantListWidget extends StatefulWidget {
   const RestaurantListWidget({
@@ -91,7 +92,7 @@ class _SliverAppBarTitle extends StatelessWidget {
       padding: const EdgeInsets.only(left: 18.0),
       child: Container(
         color: appTheme.wColors.N100,
-        child: const Text("Nearby Restaurants"),
+        child: const Text(Strings.sliverAppBarTitle),
       ),
     );
   }
@@ -112,7 +113,8 @@ class _SliverAppBarFlexibleSpace extends StatelessWidget {
         color: appTheme.wColors.N100,
         child: BlocBuilder<SliverAppBarCubit, SliverAppBarState>(
           builder: (context, state) {
-            final address = state.when(initial: () => "Delivering happiness", success: (address) => address);
+            final address =
+                state.when(initial: () => Strings.sliverAppBarFlexibleSpacePlaceHolder, success: (address) => address);
             return Row(
               children: [
                 const Padding(
