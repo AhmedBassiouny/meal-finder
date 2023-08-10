@@ -33,7 +33,7 @@ class _RestaurantListView extends StatelessWidget {
               success: (restaurants) {
                 return RestaurantListWidget(restaurants: restaurants);
               },
-              failure: (e) => ErrorScreen(errorMessage: e, onRetry: () => _onRetryTappedAction(context)),
+              failure: () => ErrorScreen(errorMessage: null, onRetry: () => _onRetryTappedAction(context)),
             ),
           );
         },

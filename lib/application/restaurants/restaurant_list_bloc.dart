@@ -69,9 +69,7 @@ class RestaurantListBloc extends Bloc<RestaurantListEvent, RestaurantListState> 
   }) async {
     emit(RestaurantListState.processingLocationChange(location: location));
     await _restaurantProvider.getNearbyRestaurants(lat: location.lat, lon: location.lon).fold(
-          (error) => emit(
-            RestaurantListState.failure(errorMessage: error.message),
-          ),
+          (error) => emit(const RestaurantListState.failure()),
           (result) => emit(RestaurantListState.success(restaurants: result)),
         );
   }

@@ -14,9 +14,7 @@ class RestaurantListState with _$RestaurantListState {
     required Location location,
   }) = _ProcessingLocationChange;
 
-  const factory RestaurantListState.failure({
-    required String errorMessage,
-  }) = _Failure;
+  const factory RestaurantListState.failure() = _Failure;
 }
 
 extension RestaurantListStateX on RestaurantListState {

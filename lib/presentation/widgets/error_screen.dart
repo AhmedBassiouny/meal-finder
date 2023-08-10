@@ -3,7 +3,7 @@ import 'package:meal_finder/theme/app_theme.dart';
 import 'package:meal_finder/utils/strings.dart';
 
 class ErrorScreen extends StatelessWidget {
-  final String errorMessage;
+  final String? errorMessage;
   final VoidCallback onRetry;
 
   const ErrorScreen({super.key, required this.errorMessage, required this.onRetry});
@@ -24,11 +24,11 @@ class ErrorScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.all(16.0),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  Strings.errorScreenMessage,
-                  style: TextStyle(
+                  errorMessage ?? Strings.errorScreenMessage,
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
                   ),

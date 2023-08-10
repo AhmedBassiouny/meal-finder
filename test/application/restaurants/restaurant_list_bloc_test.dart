@@ -92,7 +92,7 @@ void main() {
       expect: () => [
         const RestaurantListState.loading(),
         const RestaurantListState.processingLocationChange(location: location),
-        const RestaurantListState.failure(errorMessage: "error")
+        const RestaurantListState.failure()
       ],
     );
 

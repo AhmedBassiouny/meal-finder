@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meal_finder/infrastructure/model/wolt_response.dart';
+import 'package:meal_finder/utils/logs_reporter.dart';
 import 'package:meal_finder/utils/werror.dart';
 
 part 'wolt_remote_service.freezed.dart';
@@ -41,8 +42,14 @@ class WoltRemoteService {
       );
       return Right(response.data);
     } on DioException catch (e) {
-      return Left(WError(e.error.toString()));
+      return _handleError(e);
     }
+  }
+
+  Left<WError, dynamic> _handleError(DioException e) {
+    final message = e.message ?? e.error.toString();
+    LogsReporter.report(message: message, error: e);
+    return Left(WError(message));
   }
 }
 
