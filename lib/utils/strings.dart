@@ -10,6 +10,6 @@ class Strings {
 
   // Error Screen
   static const String errorScreenMessage = "Something unexpected just happened 😔";
-  static const String errorScreenButtonText = "Nearby Restaurants";
+  static const String errorScreenButtonText = "Retry";
 
 }

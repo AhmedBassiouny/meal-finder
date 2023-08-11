@@ -15,6 +15,7 @@ class WoltRemoteService {
             Dio(
               BaseOptions(
                 connectTimeout: const Duration(seconds: 10),
+                receiveTimeout: const Duration(seconds: 30),
               ),
             );
 
@@ -43,6 +44,9 @@ class WoltRemoteService {
       return Right(response.data);
     } on DioException catch (e) {
       return _handleError(e);
+    } catch (e) {
+      LogsReporter.report(message: "An unexpected error occurred.", error: e);
+      return const Left(WError("An unexpected error occurred."));
     }
   }
 

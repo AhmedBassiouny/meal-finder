@@ -30,20 +30,32 @@ class RestaurantProvider {
     List<Item> items,
   ) {
     final idSet = Set.from(ids);
-    final results = <Restaurant>[];
-    for (final item in items.take(15)) {
-      results.add(item.toRestaurant(fav: idSet.contains(item.venue?.id)));
-    }
-    return results;
+    var count = 0;
+    return items.where((item) {
+      if (item.venue != null && count < 15) {
+        count++;
+        return true;
+      }
+      return false;
+    }).map((item) {
+      final fav = idSet.contains(item.venue?.id);
+      return item.toRestaurant(fav: fav)!;
+    }).toList();
   }
 }
 
 extension on Item {
-  Restaurant toRestaurant({required bool fav}) => Restaurant(
-        id: venue?.id ?? "id",
-        name: venue?.name ?? "name",
+  Restaurant? toRestaurant({required bool fav}) {
+    if (venue == null) {
+      return null;
+    } else {
+      return Restaurant(
+        id: venue!.id,
+        name: venue!.name,
         imageUrl: image.url,
-        shortDescription: venue?.shortDescription,
+        shortDescription: venue!.shortDescription,
         fav: fav,
       );
+    }
+  }
 }

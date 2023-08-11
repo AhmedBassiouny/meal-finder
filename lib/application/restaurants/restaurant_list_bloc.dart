@@ -37,23 +37,25 @@ class RestaurantListBloc extends Bloc<RestaurantListEvent, RestaurantListState> 
       );
     });
     on<_FavIconPressed>(
-      (event, emit) => _favoriteRepository.setFavRestaurants(
+      (event, _) => _favoriteRepository.setFavRestaurants(
         restaurantId: event.restaurantId,
         fav: event.fav,
       ),
     );
 
-    streamSubscription = _geoLocationRepository.getLiveLocation().listen((location) {
-      add(RestaurantListEvent.locationChanged(
-        location: location,
-      ));
-    });
+    _initializeLiveLocationSubscription();
   }
 
   final RestaurantProvider _restaurantProvider;
   final GeoLocationRepository _geoLocationRepository;
   final FavoriteRepository _favoriteRepository;
   StreamSubscription<Location>? streamSubscription;
+
+  void _initializeLiveLocationSubscription() {
+    streamSubscription = _geoLocationRepository.getLiveLocation().listen((location) {
+      add(RestaurantListEvent.locationChanged(location: location));
+    });
+  }
 
   Future<void> _fetchData(Emitter<RestaurantListState> emit) async {
     final location = _geoLocationRepository.getCurrentLocation();
@@ -63,7 +65,7 @@ class RestaurantListBloc extends Bloc<RestaurantListEvent, RestaurantListState> 
     );
   }
 
-  _handleLocationChange({
+  Future<void> _handleLocationChange({
     required Emitter<RestaurantListState> emit,
     required Location location,
   }) async {

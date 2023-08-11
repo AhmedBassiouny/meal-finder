@@ -11,7 +11,7 @@ import 'package:meal_finder/theme/app_theme.dart';
 class RestaurantItemWidget extends StatelessWidget {
   final Restaurant _restaurant;
 
-  const RestaurantItemWidget(restaurant, {super.key}) : _restaurant = restaurant;
+  const RestaurantItemWidget(this._restaurant, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Card(
@@ -29,12 +29,7 @@ class RestaurantItemWidget extends StatelessWidget {
               width: double.infinity,
               fit: BoxFit.cover,
               height: 180,
-              placeholder: (context, url) {
-                return const AspectRatio(
-                  aspectRatio: 1.6,
-                  child: BlurHash(hash: _CONSTANTS.blurHash),
-                );
-              },
+              placeholder: (_, __) => _blurHashPlaceholder,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 22.0),
@@ -85,6 +80,7 @@ class RestaurantItemWidget extends StatelessWidget {
           );
 }
 
-class _CONSTANTS {
-  static const String blurHash = "LKN]Rv%2Tw=w]~RBVZRi};RPxuwH";
-}
+const _blurHashPlaceholder = AspectRatio(
+  aspectRatio: 1.6,
+  child: BlurHash(hash: "LKN]Rv%2Tw=w]~RBVZRi};RPxuwH"),
+);
