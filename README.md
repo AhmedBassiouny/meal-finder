@@ -14,8 +14,6 @@
 * Right after you have cloned the repository, IDE may complain about some unsatisfied dependencies. Fetch all the dependencies by running the following command: ```flutter pub get```
 * Project uses several libraries that help us by generating some boilerplate code. To run the code generation, execute this command: ```flutter pub run build_runner build```
 
-Sure, here's the formatted structure suitable for a GitHub README using markdown:
-
 ---
 
 ## 📂 Folder Structure Overview
